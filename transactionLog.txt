@@ -1,0 +1,33 @@
+Mickey Mouse deposited $100.0 into their checking account.
+Mickey Mouse deposited $100.5 into their checking account.
+Goofy Disney withdrew $1234.56 from their savings account.
+Aladdin Disney withdrew $600.52 from their checking account.
+Aladdin Disney deposited $400.05 into their credit account.
+Scar Lion deposited $500.99 into their checking account.
+Scar Lion transferred $100.99 from their checking account to their savings.
+Cruella De Vil sent $12.87 to Simba Disney.
+Captaiin Hook deposited $12.09 into their checking account.
+Captaiin Hook withdrew $144.45 from their savings account.
+Mickey Mouse deposited $1.0 into their checking account.
+Mickey Mouse deposited $123.45 into their checking account.
+Goofy Disney deposited $99.99 into their checking account.
+Alfredo Rodriguez deposited $1000000.0 into their checking account.
+Alfredo Rodriguez deposited $1000000.0 into their checking account.
+Simba King transferred $4.2 from their savings account to their checking.
+Kaa Disney transferred $69.69 from their savings account to their checking.
+Alfredo Rodriguez transferred $19.99 from their checking account to their savings.
+Alfredo Rodriguez deposited $1000000.0 into their checking account.
+Alfredo Rodriguez transferred $19.99 from their checking account to their savings.
+Alfredo Rodriguez transferred $19.99 from their checking account to their savings.
+Pinocchio Disney deposited $27639.09 into their checking account.
+Quasimodo Disney deposited $10.0 into their credit account.
+Quasimodo Disney withdrew $15.99 from their checking account.
+Quasimodo Disney withdrew $19.09 from their savings account.
+Quasimodo Disney transferred $33.33 from their savings account to their checking.
+Quasimodo Disney transferred $199.78 from their checking account to their savings.
+Woody Disney sent $199.08 to Buzz Lightyear.
+Dale Disney deposited $999.99 into their checking account.
+Dale Disney withdrew $165.0 from their savings account.
+Goofy Disney sent $123.0 to Minnie Mouse.
+Mickey Mouse withdrew $50.0 from their savings account.
+Mickey Mouse sent $123.45 to Cruella De Vil.
