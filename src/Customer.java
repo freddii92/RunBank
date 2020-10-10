@@ -54,15 +54,16 @@ public class Customer extends Person {
     /**
      * This method is used to search for the index of the customer array list using the first name
      * @param customerArrayList Receives customer array list.
-     * @param name Receives first name
+     * @param firstName Receives first name
+     * @param lastName Receives last name
      * @return index from array list
      */
-    public int searchAccount(ArrayList<Customer> customerArrayList, String name) {
+    public int searchAccount(ArrayList<Customer> customerArrayList, String firstName, String lastName) {
 
-        int i = 0;
+        int i;
 
         for (i = 0; i < customerArrayList.size(); i++) {
-            if (name.equals(customerArrayList.get(i).getFirstName())) {
+            if (firstName.equals(customerArrayList.get(i).getFirstName()) && lastName.equals(customerArrayList.get(i).getLastName())) {
                 break;
             }
         }

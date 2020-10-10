@@ -21,8 +21,8 @@ public class RunBank {
         ArrayList<Account> creditArrayList = new ArrayList<>();
         Scanner scanner = null;
         Scanner userInput = new Scanner(System.in);
-        int userID = 0;
-        int openingOption = 0;
+        int userID;
+        int openingOption;
         Customer user;
         Account userChecking;
         Account userSavings;
@@ -89,6 +89,69 @@ public class RunBank {
             savingsArrayList.add(savingsInfo);
             creditArrayList.add(creditInfo);
         }
+
+        System.out.println("Welcome!");
+        System.out.println("1. New user");
+        System.out.println("2. Existing user");
+        int userHistory = userInput.nextInt();
+
+        Scanner addressScanner = new Scanner(System.in);
+        Scanner dobScanner = new Scanner(System.in);
+
+        if (userHistory == 1) {
+            System.out.println("Please include all fields");
+            System.out.print("First name: ");
+            String firstName = userInput.next();
+            System.out.print("Last name: ");
+            String lastName = userInput.next();
+            System.out.print("Date of birth (Month Day, Year): ");
+            String dateOfBirth = dobScanner.nextLine();
+            System.out.print("Address: ");
+            String address = addressScanner.nextLine();
+            System.out.print("10-digit phone number: ");
+            long phoneNumber = userInput.nextLong();
+            System.out.print("Savings account number: ");
+            int savingsAccountNumber = userInput.nextInt();
+            System.out.print("Amount to deposit into savings: ");
+            double savingsStartingBalance = userInput.nextDouble();
+            int identificationNumber = customerArrayList.size() + 1;
+
+            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
+            Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
+
+            customerArrayList.add(customerInfo);
+            savingsArrayList.add(savingsInfo);
+
+            System.out.println("Would you like to create a Checking account? (y/n)");
+            String createAccount = userInput.next().toLowerCase();
+
+            if (createAccount.equals("y")) {
+                System.out.print("Enter checking account number: ");
+                int checkingAccountNumber = userInput.nextInt();
+                System.out.print("Enter amount to deposit into checking: ");
+                double checkingStartingBalance = userInput.nextDouble();
+
+                Checking checkingInfo = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
+
+                checkingArrayList.add(checkingInfo);
+            }
+
+            System.out.println("Would you like to create a Credit account? (y/n)");
+            createAccount = userInput.next().toLowerCase();
+
+            if (createAccount.equals("y")) {
+                System.out.print("Enter credit account number: ");
+                int creditAccountNumber = userInput.nextInt();
+                System.out.print("Congratulations! You were approved for $5000");
+                double creditStartingBalance = 0;
+
+                Credit creditInfo = new Credit(identificationNumber, creditAccountNumber, creditStartingBalance);
+
+                creditArrayList.add(creditInfo);
+            }
+            System.out.println("Redirecting you to main menu...");
+        }
+
 
         // greeting customer and asking if they are a customer or bank manager
         System.out.println("Welcome!");
@@ -244,9 +307,11 @@ public class RunBank {
                     System.out.println("4. Exit");
                     int managerInquireInput = userInput.nextInt();
                     if (managerInquireInput == 1) {
-                        System.out.println("Who's account would you like to inquire about?");
-                        String managerNameInput = userInput.next();
-                        int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerNameInput);
+                        System.out.print("Please enter first name: ");
+                        String managerFirstNameInput = userInput.next();
+                        System.out.print("Please enter last name: ");
+                        String managerLastNameInput = userInput.next();
+                        int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerFirstNameInput, managerLastNameInput);
                         userChecking = checkingArrayList.get(userAccountIndex);
                         userSavings = savingsArrayList.get(userAccountIndex);
                         userCredit = creditArrayList.get(userAccountIndex);
@@ -268,8 +333,7 @@ public class RunBank {
                             try {
                                 managerChecking = (Checking) checkingArrayList.get(userAccountIndex);
                                 managerChecking.inquireBalance(checkingArrayList, userAccountIndex, "Checking: $");
-                            }
-                            catch (IndexOutOfBoundsException e) {
+                            } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
                         }
@@ -278,8 +342,7 @@ public class RunBank {
                             try {
                                 managerSavings = (Savings) savingsArrayList.get(userAccountIndex);
                                 managerSavings.inquireBalance(savingsArrayList, userAccountIndex, "Savings: $");
-                            }
-                            catch (IndexOutOfBoundsException e) {
+                            } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
                         }
@@ -288,14 +351,13 @@ public class RunBank {
                             try {
                                 managerCredit = (Credit) creditArrayList.get(userAccountIndex);
                                 managerCredit.inquireBalance(creditArrayList, userAccountIndex, "Credit: $");
-                            }
-                            catch (IndexOutOfBoundsException e) {
+                            } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
                         }
                     }
                     if (managerInquireInput == 3) {
-                        for (int i = 0; i < customerArrayList.size(); i ++) {
+                        for (int i = 0; i < customerArrayList.size(); i++) {
                             System.out.println(customerArrayList.get(i).getFirstName() + " " + customerArrayList.get(i).getLastName());
                             System.out.println("Checking: $" + checkingArrayList.get(i).getStartingBalance());
                             System.out.println("Savings:  $" + savingsArrayList.get(i).getStartingBalance());
@@ -306,8 +368,7 @@ public class RunBank {
                         exit = true;
                     }
                 }
-            }
-            catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Incorrect Value");
             }
         }
