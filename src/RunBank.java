@@ -14,9 +14,9 @@ public class RunBank {
 
         // initializing all variables used
         ArrayList<Customer> customerArrayList;
-        ArrayList<Account> checkingArrayList = new ArrayList<>();
-        ArrayList<Account> savingsArrayList = new ArrayList<>();
-        ArrayList<Account> creditArrayList = new ArrayList<>();
+//        ArrayList<Account> checkingArrayList = new ArrayList<>();
+//        ArrayList<Account> savingsArrayList = new ArrayList<>();
+//        ArrayList<Account> creditArrayList = new ArrayList<>();
         Scanner scanner = null;
         Scanner userInput = new Scanner(System.in);
         int userID;
@@ -248,18 +248,17 @@ public class RunBank {
                     System.out.println("4. Exit");
                     int managerInquireInput = userInput.nextInt();
                     if (managerInquireInput == 1) {
+                        Scanner lastNameScanner = new Scanner(System.in);
                         System.out.print("Please enter first name: ");
                         String managerFirstNameInput = userInput.next();
                         System.out.print("Please enter last name: ");
-                        String managerLastNameInput = userInput.next();
+                        String managerLastNameInput = lastNameScanner.nextLine();
                         int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerFirstNameInput, managerLastNameInput);
-                        userChecking = (Checking) checkingArrayList.get(userAccountIndex);
-                        userSavings = (Savings) savingsArrayList.get(userAccountIndex);
-                        userCredit = (Credit) creditArrayList.get(userAccountIndex);
+                        if (userAccountIndex == -1) continue;
                         System.out.println("Account Summary");
-                        System.out.println("Checking: $" + userChecking.getStartingBalance());
-                        System.out.println("Savings:  $" + userSavings.getStartingBalance());
-                        System.out.println("Credit:   $" + userCredit.getStartingBalance());
+                        System.out.println("Checking: $" + customerArrayList.get(userAccountIndex).getCheckingStartingBalance());
+                        System.out.println("Savings:  $" + customerArrayList.get(userAccountIndex).getSavingsStartingBalance());
+                        System.out.println("Credit:   $" + customerArrayList.get(userAccountIndex).getCreditStartingBalance());
                     }
                     if (managerInquireInput == 2) {
                         System.out.println("What account type?");
@@ -272,8 +271,7 @@ public class RunBank {
                         if (accountTypeInput == 1) {
                             int userAccountIndex = managerCheckingObject.searchAccount(customerArrayList, accountNumberInput);
                             try {
-                                managerChecking = (Checking) checkingArrayList.get(userAccountIndex);
-                                managerChecking.inquireBalance(customerArrayList, userAccountIndex, "checking");
+                                managerCheckingObject.inquireBalance(customerArrayList, userAccountIndex, "checking");
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
@@ -281,8 +279,7 @@ public class RunBank {
                         if (accountTypeInput == 2) {
                             int userAccountIndex = managerSavingsObject.searchAccount(customerArrayList, accountNumberInput);
                             try {
-                                managerChecking = (Checking) savingsArrayList.get(userAccountIndex);
-                                managerChecking.inquireBalance(customerArrayList, userAccountIndex, "savings");
+                                managerCheckingObject.inquireBalance(customerArrayList, userAccountIndex, "savings");
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
@@ -290,8 +287,7 @@ public class RunBank {
                         if (accountTypeInput == 3) {
                             int userAccountIndex = managerCreditObject.searchAccount(customerArrayList, accountNumberInput);
                             try {
-                                managerChecking = (Checking) creditArrayList.get(userAccountIndex);
-                                managerChecking.inquireBalance(customerArrayList, userAccountIndex, "credit");
+                                managerCheckingObject.inquireBalance(customerArrayList, userAccountIndex, "credit");
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
@@ -300,9 +296,9 @@ public class RunBank {
                     if (managerInquireInput == 3) {
                         for (int i = 0; i < customerArrayList.size(); i++) {
                             System.out.println(customerArrayList.get(i).getFirstName() + " " + customerArrayList.get(i).getLastName());
-                            System.out.println("Checking: $" + checkingArrayList.get(i).getStartingBalance());
-                            System.out.println("Savings:  $" + savingsArrayList.get(i).getStartingBalance());
-                            System.out.println("Credit:   $" + creditArrayList.get(i).getStartingBalance());
+                            System.out.println("Checking: $" + customerArrayList.get(i).getCheckingStartingBalance());
+                            System.out.println("Savings:  $" + customerArrayList.get(i).getSavingsStartingBalance());
+                            System.out.println("Credit:   $" + customerArrayList.get(i).getCreditStartingBalance());
                         }
                     }
                     if (managerInquireInput == 4) {

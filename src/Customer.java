@@ -285,10 +285,11 @@ public class Customer extends Person {
 
         for (i = 0; i < customerArrayList.size(); i++) {
             if (firstName.equals(customerArrayList.get(i).getFirstName()) && lastName.equals(customerArrayList.get(i).getLastName())) {
-                break;
+                return i;
             }
         }
 
-        return i;
+        System.out.println("Account not found. Returning to main menu.");
+        return -1;
     }
 }
