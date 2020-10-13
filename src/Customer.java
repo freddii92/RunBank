@@ -19,7 +19,7 @@ public class Customer extends Person {
     private int creditAccountNumber;
     private double creditStartingBalance;
     private int creditMax;
-    private Checking userChecking = new Checking();
+    private final Checking userChecking = new Checking();
 
     /**
      * This method gets the checking account number
