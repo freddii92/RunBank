@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Savings class is child class of Account
  *
@@ -46,16 +44,5 @@ public class Savings extends Account {
      */
     public void setIdentificationNumber(int identificationNumberIn) {
         this.identificationNumber = identificationNumberIn;
-    }
-
-    /**
-     * This method is used to inquire balance.
-     *
-     * @param accountList Receives account list.
-     * @param i Receives index from array list.
-     * @param account Receives account type
-     */
-    public void inquireBalance(ArrayList<Account> accountList, int i, String account) {
-        System.out.println(account + accountList.get(i).getStartingBalance());
     }
 }

@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,7 +13,7 @@ public class RunBank {
     public static void main(String[] args) {
 
         // initializing all variables used
-        ArrayList<Customer> customerArrayList = new ArrayList<>();
+        ArrayList<Customer> customerArrayList;
         ArrayList<Account> checkingArrayList = new ArrayList<>();
         ArrayList<Account> savingsArrayList = new ArrayList<>();
         ArrayList<Account> creditArrayList = new ArrayList<>();
@@ -24,9 +22,9 @@ public class RunBank {
         int userID;
         int openingOption;
         Customer user;
-        Account userChecking;
-        Account userSavings;
-        Account userCredit;
+        Checking userChecking = new Checking();
+        Savings userSavings = new Savings();
+        Credit userCredit = new Credit();
         Checking managerChecking;
         Savings managerSavings;
         Credit managerCredit;
@@ -36,59 +34,7 @@ public class RunBank {
         Credit managerCreditObject = new Credit();
         boolean exit = false;
 
-        // reading csv file
-        File bankInfo = new File("CS 3331 - Bank Users 2.csv");
-
-        // try and catch to prevent file not found exception
-        try {
-            scanner = new Scanner(bankInfo);
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-        }
-
-        // skipping first line from file
-        assert scanner != null;
-        scanner.nextLine();
-
-        // while loop that will read file line by line
-        // will split info in between commas
-        // loop will also add each information from line into the array as objects
-        while (scanner.hasNextLine()) {
-            String nextLine = scanner.nextLine();
-            String[] newLine = nextLine.split(",");
-
-            String firstName = newLine[0];
-            String lastName = newLine[1];
-            String dateOfBirth = newLine[2] + "," + newLine[3];
-            String identificationNumberString = newLine[4];
-            int identificationNumber = Integer.parseInt(identificationNumberString.replaceAll("[\\s\\-]", ""));
-            String address = newLine[5] + "," + newLine[6] + "," + newLine[7];
-            String phoneNumberString = newLine[8];
-            long phoneNumber = Long.parseLong(phoneNumberString.replaceAll("\\D", ""));
-            String checkingAccountNumberString = newLine[9];
-            int checkingAccountNumber = Integer.parseInt(checkingAccountNumberString);
-            String savingsAccountNumberString = newLine[10];
-            int savingsAccountNumber = Integer.parseInt(savingsAccountNumberString);
-            String creditAccountNumberString = newLine[11];
-            int creditAccountNumber = Integer.parseInt(creditAccountNumberString);
-            String checkingStartingBalanceString = newLine[12];
-            double checkingStartingBalance = Double.parseDouble(checkingStartingBalanceString);
-            String savingsStartingBalanceString = newLine[13];
-            double savingsStartingBalance = Double.parseDouble(savingsStartingBalanceString);
-            String creditStartingBalanceString = newLine[14];
-            double creditStartingBalance = Double.parseDouble(creditStartingBalanceString);
-
-            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
-            Checking checkingInfo = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-            Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
-            Credit creditInfo = new Credit(identificationNumber, creditAccountNumber, creditStartingBalance);
-
-            customerArrayList.add(customerInfo);
-            checkingArrayList.add(checkingInfo);
-            savingsArrayList.add(savingsInfo);
-            creditArrayList.add(creditInfo);
-        }
+        customerArrayList = managerCustomerObject.getBankListArray();
 
         System.out.println("Welcome!");
         System.out.println("1. New user");
@@ -116,11 +62,11 @@ public class RunBank {
             double savingsStartingBalance = userInput.nextDouble();
             int identificationNumber = customerArrayList.size() + 1;
 
-            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
-            Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
+            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, 0, savingsAccountNumber, 0, 0, savingsStartingBalance, 0);
+            //Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
 
             customerArrayList.add(customerInfo);
-            savingsArrayList.add(savingsInfo);
+            //savingsArrayList.add(savingsInfo);
 
             System.out.println("Would you like to create a Checking account? (y/n)");
             String createAccount = userInput.next().toLowerCase();
@@ -173,9 +119,6 @@ public class RunBank {
             while (true) {
                 if (userID == customerArrayList.get(i).getIdentificationNumber()) {
                     user = customerArrayList.get(i);
-                    userChecking = checkingArrayList.get(i);
-                    userSavings = savingsArrayList.get(i);
-                    userCredit = creditArrayList.get(i);
                     break;
                 }
                 i++;
@@ -201,9 +144,9 @@ public class RunBank {
 
                     if (mainInput == 1) {
                         System.out.println("Account Summary");
-                        System.out.println("Checking: $" + userChecking.getStartingBalance());
-                        System.out.println("Savings:  $" + userSavings.getStartingBalance());
-                        System.out.println("Credit:   $" + userCredit.getStartingBalance());
+                        System.out.println("Checking: $" + user.getCheckingStartingBalance());
+                        System.out.println("Savings:  $" + user.getSavingsStartingBalance());
+                        System.out.println("Credit:   $" + user.getCreditStartingBalance());
                     }
                     if (mainInput == 2) {
                         System.out.println("Please select account.");
@@ -214,17 +157,17 @@ public class RunBank {
                         if (depositInput == 1) {
                             System.out.print("Please enter amount: ");
                             double depositAmount = userInput.nextDouble();
-                            System.out.println(userChecking.deposit(customerArrayList, checkingArrayList, i, depositAmount, "checking"));
+                            System.out.println(userChecking.deposit(customerArrayList, i, depositAmount, "checking"));
                         }
                         if (depositInput == 2) {
                             System.out.print("Please enter amount: ");
                             double depositAmount = userInput.nextDouble();
-                            System.out.println(userSavings.deposit(customerArrayList, savingsArrayList, i, depositAmount, "savings"));
+                            System.out.println(userSavings.deposit(customerArrayList, i, depositAmount, "savings"));
                         }
                         if (depositInput == 3) {
                             System.out.print("Please enter amount: ");
                             double depositAmount = userInput.nextDouble();
-                            System.out.println(userCredit.deposit(customerArrayList, creditArrayList, i, depositAmount, "credit"));
+                            System.out.println(userCredit.deposit(customerArrayList, i, depositAmount, "credit"));
                         }
                     }
                     if (mainInput == 3) {
@@ -233,10 +176,10 @@ public class RunBank {
                         System.out.println("2. Savings");
                         int withdrawInput = userInput.nextInt();
                         if (withdrawInput == 1) {
-                            userChecking.withdraw(customerArrayList, checkingArrayList, i, "checking");
+                            userChecking.withdraw(customerArrayList, i, "checking");
                         }
                         if (withdrawInput == 2) {
-                            userSavings.withdraw(customerArrayList, savingsArrayList, i, "savings");
+                            userSavings.withdraw(customerArrayList, i, "savings");
                         }
                     }
                     if (mainInput == 4) {
@@ -247,12 +190,12 @@ public class RunBank {
                         if (transferInput == 1) {
                             System.out.print("Please select amount: ");
                             double transferAmount = userInput.nextDouble();
-                            System.out.println(userChecking.transfer(customerArrayList, checkingArrayList, savingsArrayList, i, transferInput, transferAmount));
+                            System.out.println(userChecking.transfer(customerArrayList, "checking", "savings", i, transferAmount));
                         }
                         if (transferInput == 2) {
                             System.out.print("Please select amount: ");
                             double transferAmount = userInput.nextDouble();
-                            System.out.println(userChecking.transfer(customerArrayList, savingsArrayList, checkingArrayList, i, transferInput, transferAmount));
+                            System.out.println(userChecking.transfer(customerArrayList, "savings", "checking", i, transferAmount));
                         }
                     }
                     if (mainInput == 5) {
@@ -273,23 +216,23 @@ public class RunBank {
                         int otherAccountInput = userInput.nextInt();
                         if (paySomeoneInput == 1) {
                             if (otherAccountInput == 1) {
-                                userChecking.paySomeone(customerArrayList, checkingArrayList, checkingArrayList, i, otherAccountIndex);
+                                userChecking.paySomeone(customerArrayList, "checking", "checking", i, otherAccountIndex);
                             }
                             if (otherAccountInput == 2) {
-                                userChecking.paySomeone(customerArrayList, checkingArrayList, savingsArrayList, i, otherAccountIndex);
+                                userChecking.paySomeone(customerArrayList, "checking", "savings", i, otherAccountIndex);
                             }
                         }
                         if (paySomeoneInput == 2) {
                             if (otherAccountInput == 1) {
-                                userSavings.paySomeone(customerArrayList, savingsArrayList, checkingArrayList, i, otherAccountIndex);
+                                userSavings.paySomeone(customerArrayList, "savings", "checking", i, otherAccountIndex);
                             }
                             if (otherAccountInput == 2) {
-                                userSavings.paySomeone(customerArrayList, savingsArrayList, savingsArrayList, i, otherAccountIndex);
+                                userSavings.paySomeone(customerArrayList, "savings", "savings", i, otherAccountIndex);
                             }
                         }
                     }
                     if (mainInput == 6) {
-                        userChecking.newBalanceSheet(customerArrayList, checkingArrayList, savingsArrayList, creditArrayList);
+                        userChecking.newBalanceSheet(customerArrayList);
                         exit = true;
                     }
                 }
@@ -312,9 +255,9 @@ public class RunBank {
                         System.out.print("Please enter last name: ");
                         String managerLastNameInput = userInput.next();
                         int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerFirstNameInput, managerLastNameInput);
-                        userChecking = checkingArrayList.get(userAccountIndex);
-                        userSavings = savingsArrayList.get(userAccountIndex);
-                        userCredit = creditArrayList.get(userAccountIndex);
+                        userChecking = (Checking) checkingArrayList.get(userAccountIndex);
+                        userSavings = (Savings) savingsArrayList.get(userAccountIndex);
+                        userCredit = (Credit) creditArrayList.get(userAccountIndex);
                         System.out.println("Account Summary");
                         System.out.println("Checking: $" + userChecking.getStartingBalance());
                         System.out.println("Savings:  $" + userSavings.getStartingBalance());
@@ -329,28 +272,28 @@ public class RunBank {
                         System.out.println("What is the account number?");
                         int accountNumberInput = userInput.nextInt();
                         if (accountTypeInput == 1) {
-                            int userAccountIndex = managerCheckingObject.searchAccount(checkingArrayList, accountNumberInput);
+                            int userAccountIndex = managerCheckingObject.searchAccount(customerArrayList, accountNumberInput);
                             try {
                                 managerChecking = (Checking) checkingArrayList.get(userAccountIndex);
-                                managerChecking.inquireBalance(checkingArrayList, userAccountIndex, "Checking: $");
+                                managerChecking.inquireBalance(customerArrayList, userAccountIndex, "checking");
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
                         }
                         if (accountTypeInput == 2) {
-                            int userAccountIndex = managerSavingsObject.searchAccount(savingsArrayList, accountNumberInput);
+                            int userAccountIndex = managerSavingsObject.searchAccount(customerArrayList, accountNumberInput);
                             try {
-                                managerSavings = (Savings) savingsArrayList.get(userAccountIndex);
-                                managerSavings.inquireBalance(savingsArrayList, userAccountIndex, "Savings: $");
+                                managerChecking = (Checking) savingsArrayList.get(userAccountIndex);
+                                managerChecking.inquireBalance(customerArrayList, userAccountIndex, "savings");
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }
                         }
                         if (accountTypeInput == 3) {
-                            int userAccountIndex = managerCreditObject.searchAccount(creditArrayList, accountNumberInput);
+                            int userAccountIndex = managerCreditObject.searchAccount(customerArrayList, accountNumberInput);
                             try {
-                                managerCredit = (Credit) creditArrayList.get(userAccountIndex);
-                                managerCredit.inquireBalance(creditArrayList, userAccountIndex, "Credit: $");
+                                managerChecking = (Checking) creditArrayList.get(userAccountIndex);
+                                managerChecking.inquireBalance(customerArrayList, userAccountIndex, "credit");
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Account does not exist. Returning to menu.");
                             }

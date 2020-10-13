@@ -13,28 +13,59 @@ import static org.junit.Assert.*;
  */
 public class AccountTest {
 
-    /**
+    public ArrayList<Customer> setupList() {
+
+        ArrayList<Customer> testArray = new ArrayList<>();
+        String firstName = "Alfredo";
+        String lastName = "Rodriguez";
+        String dateOfBirth = "August 19, 1992";
+        String address = "123 Unknown Way El Paso TX";
+        long phoneNumber = 915999999;
+        int identificationNumber = 28;
+        int checkingAccountNumber = 3003;
+        int savingsAccountNumber = 1234;
+        int creditAccountNumber = 4321;
+        double checkingStartingBalance = 1999.99;
+        double savingsStartingBalance = 699.98;
+        double creditStartingBalance = -999.99;
+        Customer checkingInfo1 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+        testArray.add(checkingInfo1);
+        firstName = "David";
+        lastName = "Rodriguez";
+        dateOfBirth = "August 19, 1992";
+        address = "123 Unknown Way El Paso TX";
+        phoneNumber = 915999999;
+        identificationNumber = 31;
+        checkingAccountNumber = 7356;
+        savingsAccountNumber = 1690;
+        creditAccountNumber = 9987;
+        checkingStartingBalance = 15679.09;
+        savingsStartingBalance = 69.09;
+        creditStartingBalance = -9.99;
+        Customer checkingInfo2 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+        testArray.add(checkingInfo2);
+        firstName = "Ivan";
+        lastName = "Rodriguez";
+        dateOfBirth = "August 19, 1992";
+        address = "123 Unknown Way El Paso TX";
+        phoneNumber = 915999999;
+        identificationNumber = 4;
+        checkingAccountNumber = 7656;
+        savingsAccountNumber = 5678;
+        creditAccountNumber = 9999;
+        checkingStartingBalance = 19.99;
+        savingsStartingBalance = 6.98;
+        creditStartingBalance = -9989.99;
+        Customer checkingInfo3 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+        testArray.add(checkingInfo3);
+        return testArray;
+    }    /**
      * First test to searchAccount method in Account class
      */
     @Test
     public void searchAccountTest1() {
-        ArrayList<Account> testArray = new ArrayList<>();
-        int identificationNumber = 28;
-        int checkingAccountNumber = 3003;
-        double checkingStartingBalance = 1999.99;
-        Checking checkingInfo1 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo1);
-        identificationNumber = 29;
-        checkingAccountNumber = 2001;
-        checkingStartingBalance = 19.99;
-        Checking checkingInfo2 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo2);
-        identificationNumber = 30;
-        checkingAccountNumber = 2301;
-        checkingStartingBalance = 194.90;
-        Checking checkingInfo3 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo3);
-        assertEquals(1, checkingInfo1.searchAccount(testArray,2001));
+        Checking testCustomer = new Checking();
+        assertEquals(0, testCustomer.searchAccount(setupList(),3003));
     }
 
     /**
@@ -42,23 +73,8 @@ public class AccountTest {
      */
     @Test
     public void searchAccountTest2() {
-        ArrayList<Account> testArray = new ArrayList<>();
-        int identificationNumber = 28;
-        int checkingAccountNumber = 3003;
-        double checkingStartingBalance = 1999.99;
-        Checking checkingInfo1 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo1);
-        identificationNumber = 29;
-        checkingAccountNumber = 2001;
-        checkingStartingBalance = 19.99;
-        Checking checkingInfo2 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo2);
-        identificationNumber = 30;
-        checkingAccountNumber = 2301;
-        checkingStartingBalance = 194.90;
-        Checking checkingInfo3 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo3);
-        assertTrue(checkingInfo1.searchAccount(testArray, 2301) == 2);
+        Checking testCustomer = new Checking();
+        assertTrue(testCustomer.searchAccount(setupList(), 9999) == 2);
     }
 
     /**
@@ -66,21 +82,8 @@ public class AccountTest {
      */
     @Test
     public void depositTest1() {
-        ArrayList<Account> testArray = new ArrayList<>();
-        int identificationNumber = 28;
-        int checkingAccountNumber = 3003;
-        double checkingStartingBalance = 1999.99;
-        Checking checkingInfo1 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo1);
-        ArrayList<Customer> customerArrayList = new ArrayList<>();
-        String firstName = "Alfredo";
-        String lastName = "Rodriguez";
-        String dateOfBirth = "August 19, 1992";
-        String address = "123 Unknown Way El Paso TX";
-        long phoneNumber = 915999999;
-        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
-        customerArrayList.add(customerInfo);
-        assertSame("Incorrect value. Returning to main menu", checkingInfo1.deposit(customerArrayList, testArray, 0, -123.45, "checking"));
+        Checking test = new Checking();
+        assertSame("Incorrect value. Returning to main menu", test.deposit(setupList(), 0, -123.45, "checking"));
     }
 
     /**
@@ -88,21 +91,8 @@ public class AccountTest {
      */
     @Test
     public void depositTest2() {
-        ArrayList<Account> testArray = new ArrayList<>();
-        int identificationNumber = 28;
-        int checkingAccountNumber = 3003;
-        double checkingStartingBalance = 1999.99;
-        Checking checkingInfo1 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo1);
-        ArrayList<Customer> customerArrayList = new ArrayList<>();
-        String firstName = "Alfredo";
-        String lastName = "Rodriguez";
-        String dateOfBirth = "August 19, 1992";
-        String address = "123 Unknown Way El Paso TX";
-        long phoneNumber = 915999999;
-        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
-        customerArrayList.add(customerInfo);
-        assertEquals("Deposit of $1000000.0 successful.", checkingInfo1.deposit(customerArrayList, testArray, 0, 1000000.00, "checking"));
+        Checking test = new Checking();
+        assertEquals("Deposit of $1000000.0 successful.", test.deposit(setupList(), 0, 1000000.00, "checking"));
     }
 
     /**
@@ -110,27 +100,8 @@ public class AccountTest {
      */
     @Test
     public void transferTest1() {
-        ArrayList<Account> testArray = new ArrayList<>();
-        int identificationNumber = 28;
-        int checkingAccountNumber = 3003;
-        double checkingStartingBalance = 1999.99;
-        Checking checkingInfo1 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo1);
-        ArrayList<Account> savingsTestArray = new ArrayList<>();
-        identificationNumber = 29;
-        int savingsAccountNumber = 2001;
-        double savingsStartingBalance = 19.99;
-        Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
-        savingsTestArray.add(savingsInfo);
-        ArrayList<Customer> customerArrayList = new ArrayList<>();
-        String firstName = "Alfredo";
-        String lastName = "Rodriguez";
-        String dateOfBirth = "August 19, 1992";
-        String address = "123 Unknown Way El Paso TX";
-        long phoneNumber = 915999999;
-        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
-        customerArrayList.add(customerInfo);
-        assertTrue(("Insufficient funds. Returning to main menu.").equals(checkingInfo1.transfer(customerArrayList, testArray, savingsTestArray, 0, 1, 200000.99)));
+        Checking test = new Checking();
+        assertTrue(("Insufficient funds. Returning to main menu.").equals(test.transfer(setupList(), "checking", "savings", 0, 200000.99)));
     }
 
     /**
@@ -138,26 +109,7 @@ public class AccountTest {
      */
     @Test
     public void transferTest2() {
-        ArrayList<Account> testArray = new ArrayList<>();
-        int identificationNumber = 28;
-        int checkingAccountNumber = 3003;
-        double checkingStartingBalance = 1999.99;
-        Checking checkingInfo1 = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-        testArray.add(checkingInfo1);
-        ArrayList<Account> savingsTestArray = new ArrayList<>();
-        identificationNumber = 29;
-        int savingsAccountNumber = 2001;
-        double savingsStartingBalance = 19.99;
-        Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
-        savingsTestArray.add(savingsInfo);
-        ArrayList<Customer> customerArrayList = new ArrayList<>();
-        String firstName = "Alfredo";
-        String lastName = "Rodriguez";
-        String dateOfBirth = "August 19, 1992";
-        String address = "123 Unknown Way El Paso TX";
-        long phoneNumber = 915999999;
-        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber);
-        customerArrayList.add(customerInfo);
-        assertEquals("Transfer of $19.99 successful.", checkingInfo1.transfer(customerArrayList, savingsTestArray, testArray, 0, 1, 19.99));
+        Checking test = new Checking();
+        assertEquals("Transfer of $19.99 successful.", test.transfer(setupList(), "savings", "checking", 0, 19.99));
     }
 }

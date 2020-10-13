@@ -52,9 +52,18 @@ public class Checking extends Account {
      *
      * @param accountList Receives account list.
      * @param i Receives index from array list.
-     * @param account Receives account type
+     * @param accountType Receives account type
      */
-    public void inquireBalance(ArrayList<Account> accountList, int i, String account) {
-        System.out.println(account + accountList.get(i).getStartingBalance());
+    public void inquireBalance(ArrayList<Customer> accountList, int i, String accountType) {
+
+        if (accountType.equals("checking")) {
+            System.out.println("Checking $: " + accountList.get(i).getCheckingStartingBalance());
+        }
+        if (accountType.equals("savings")) {
+            System.out.println("Savings $: " + accountList.get(i).getSavingsStartingBalance());
+        }
+        if (accountType.equals("credit")) {
+            System.out.println("Credit $: " + accountList.get(i).getCreditStartingBalance());
+        }
     }
 }

@@ -31,3 +31,8 @@ Dale Disney withdrew $165.0 from their savings account.
 Goofy Disney sent $123.0 to Minnie Mouse.
 Mickey Mouse withdrew $50.0 from their savings account.
 Mickey Mouse sent $123.45 to Cruella De Vil.
+Alfredo Rodriguez transferred $19.99 from their savings account to their checking.
+Alfredo Rodriguez deposited $1000000.0 into their checking account.
+Alfredo Rodriguez transferred $19.99 from their savings account to their checking.
+Alfredo Rodriguez deposited $1000000.0 into their checking account.
+Scar Lion deposited $100.0 into their savings account.
