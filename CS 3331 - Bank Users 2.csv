@@ -2,7 +2,7 @@ First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Che
 Mickey,Mouse,"November 22, 1943",1,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1000,2000,3000,837.49,3795.93,-1549.33
 Donald,Duck,"September 5, 1983",2,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1001,2001,3001,1688.89,1731.09,-986.23
 Minnie,Mouse,"April 9, 2010",3,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1002,2002,3002,244.36,676.12,-459.78
-Goofy,Disney,"July 2, 1933",4,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1003,2003,3003,1587.85,4688.16,-752.22
+Goofy,Disney,"July 2, 1933",4,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1003,2003,3003,1711.84,4688.16,-752.22
 Pluto,Disney,"July 5, 1941",5,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1004,2004,3004,547.56,2316.37,-411.84
 Chip,Disney,"January 12, 1947",6,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1005,2005,3005,1060.3,3286.32,-1492.58
 Dale,Disney,"November 28, 1930",7,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1006,2006,3006,1301.8899999999999,1775.11,-1775.92
@@ -12,7 +12,7 @@ Jasmine,Disney,"September 20, 1932",10,"1313 Disneyland Dr, Anaheim, CA 92802",7
 Aladdin,Disney,"November 9, 1992",11,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1010,2010,3010,699.52,3517.98,-464.05
 Simba,Disney,"July 25, 1934",12,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1011,2011,3011,1566.61,1570.65,-980.76
 Mufassa,Disney,"July 29, 1965",13,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1012,2012,3012,958.83,3483.09,-1918.16
-Aurora,Disney,"January 21, 1937",14,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1013,2013,3013,1396.14,1644.06,-271.98
+Aurora,Disney,"January 21, 1937",14,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1013,2013,3013,1296.14,1744.06,-271.98
 Peter,Pan,"November 11, 1973",15,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1014,2014,3014,1817.07,1405.99,-307.82
 Woody,Disney,"July 2, 1990",16,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1015,2015,3015,1486.52,3904.7,-1610.58
 Buzz,Lightyear,"June 5, 2003",17,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1016,2016,3016,1969.33,3035.22,-481.38
@@ -35,3 +35,4 @@ Hercules,Disney,"February 14, 1966",33,"1313 Disneyland Dr, Anaheim, CA 92802",7
 Mulan,Disney,"July 6, 1966",34,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1033,2033,3033,1096.88,285.32,-1441.93
 Lilo,Disney,"September 21, 1969",35,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1034,2034,3034,1844.34,146.14,-1790.21
 Stitch,Disney,"January 20, 1954",36,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1035,2035,3035,341.33,1858.86,-35.2
+Tony,Stark,"May 29, 1970",37,"1313 Disneyland Dr, Anaheim, CA 92802",7147814636,1999,2999,3999,12000.0,1200.0,0.0

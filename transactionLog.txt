@@ -36,3 +36,6 @@ Alfredo Rodriguez deposited $1000000.0 into their checking account.
 Alfredo Rodriguez transferred $19.99 from their savings account to their checking.
 Alfredo Rodriguez deposited $1000000.0 into their checking account.
 Scar Lion deposited $100.0 into their savings account.
+Aurora Disney transferred $100.0 from their checking account to their savings.
+Tony Stark withdrew $1.99 from their savings account.
+Tony Stark sent $123.99 to Goofy Disney.

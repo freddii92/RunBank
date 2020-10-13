@@ -51,9 +51,9 @@ public class RunBank {
             System.out.print("Last name: ");
             String lastName = userInput.next();
             System.out.print("Date of birth (Month Day, Year): ");
-            String dateOfBirth = dobScanner.nextLine();
+            String dateOfBirth = "\"" + dobScanner.nextLine() + "\"";
             System.out.print("Address: ");
-            String address = addressScanner.nextLine();
+            String address = "\"" + addressScanner.nextLine() + "\"";
             System.out.print("10-digit phone number: ");
             long phoneNumber = userInput.nextLong();
             System.out.print("Savings account number: ");
@@ -62,42 +62,40 @@ public class RunBank {
             double savingsStartingBalance = userInput.nextDouble();
             int identificationNumber = customerArrayList.size() + 1;
 
-            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, 0, savingsAccountNumber, 0, 0, savingsStartingBalance, 0);
-            //Savings savingsInfo = new Savings(identificationNumber, savingsAccountNumber, savingsStartingBalance);
-
-            customerArrayList.add(customerInfo);
-            //savingsArrayList.add(savingsInfo);
-
             System.out.println("Would you like to create a Checking account? (y/n)");
             String createAccount = userInput.next().toLowerCase();
 
+            int checkingAccountNumber = 0;
+            double checkingStartingBalance = 0;
+
             if (createAccount.equals("y")) {
                 System.out.print("Enter checking account number: ");
-                int checkingAccountNumber = userInput.nextInt();
+                checkingAccountNumber = userInput.nextInt();
                 System.out.print("Enter amount to deposit into checking: ");
-                double checkingStartingBalance = userInput.nextDouble();
-
-                Checking checkingInfo = new Checking(identificationNumber, checkingAccountNumber, checkingStartingBalance);
-
-                checkingArrayList.add(checkingInfo);
+                checkingStartingBalance = userInput.nextDouble();
             }
 
             System.out.println("Would you like to create a Credit account? (y/n)");
             createAccount = userInput.next().toLowerCase();
 
+            int creditAccountNumber = 0;
+            double creditStartingBalance = 0;
+
             if (createAccount.equals("y")) {
                 System.out.print("Enter credit account number: ");
-                int creditAccountNumber = userInput.nextInt();
+                creditAccountNumber = userInput.nextInt();
                 System.out.print("Congratulations! You were approved for $5000");
-                double creditStartingBalance = 0;
-
-                Credit creditInfo = new Credit(identificationNumber, creditAccountNumber, creditStartingBalance);
-
-                creditArrayList.add(creditInfo);
+                creditStartingBalance = 0;
             }
+
+            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+
+            customerArrayList.add(customerInfo);
+
             System.out.println("Redirecting you to main menu...");
         }
 
+        for (int i = 0; i < customerArrayList.size(); i++) System.out.println(customerArrayList.get(i).getFirstName());
 
         // greeting customer and asking if they are a customer or bank manager
         System.out.println("Welcome!");
