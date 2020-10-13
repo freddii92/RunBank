@@ -21,7 +21,7 @@ public class RunBank {
         Scanner userInput = new Scanner(System.in);
         int userID;
         int openingOption;
-        Customer user;
+        Customer user = new Customer();
         Checking userChecking = new Checking();
         Savings userSavings = new Savings();
         Credit userCredit = new Credit();
@@ -41,67 +41,16 @@ public class RunBank {
         System.out.println("2. Existing user");
         int userHistory = userInput.nextInt();
 
-        Scanner addressScanner = new Scanner(System.in);
-        Scanner dobScanner = new Scanner(System.in);
-
         if (userHistory == 1) {
-            System.out.println("Please include all fields");
-            System.out.print("First name: ");
-            String firstName = userInput.next();
-            System.out.print("Last name: ");
-            String lastName = userInput.next();
-            System.out.print("Date of birth (Month Day, Year): ");
-            String dateOfBirth = "\"" + dobScanner.nextLine() + "\"";
-            System.out.print("Address: ");
-            String address = "\"" + addressScanner.nextLine() + "\"";
-            System.out.print("10-digit phone number: ");
-            long phoneNumber = userInput.nextLong();
-            System.out.print("Savings account number: ");
-            int savingsAccountNumber = userInput.nextInt();
-            System.out.print("Amount to deposit into savings: ");
-            double savingsStartingBalance = userInput.nextDouble();
-            int identificationNumber = customerArrayList.size() + 1;
-
-            System.out.println("Would you like to create a Checking account? (y/n)");
-            String createAccount = userInput.next().toLowerCase();
-
-            int checkingAccountNumber = 0;
-            double checkingStartingBalance = 0;
-
-            if (createAccount.equals("y")) {
-                System.out.print("Enter checking account number: ");
-                checkingAccountNumber = userInput.nextInt();
-                System.out.print("Enter amount to deposit into checking: ");
-                checkingStartingBalance = userInput.nextDouble();
-            }
-
-            System.out.println("Would you like to create a Credit account? (y/n)");
-            createAccount = userInput.next().toLowerCase();
-
-            int creditAccountNumber = 0;
-            double creditStartingBalance = 0;
-
-            if (createAccount.equals("y")) {
-                System.out.print("Enter credit account number: ");
-                creditAccountNumber = userInput.nextInt();
-                System.out.print("Congratulations! You were approved for $5000");
-                creditStartingBalance = 0;
-            }
-
-            Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
-
-            customerArrayList.add(customerInfo);
-
-            System.out.println("Redirecting you to main menu...");
+            user.createAccount(customerArrayList);
         }
-
-        for (int i = 0; i < customerArrayList.size(); i++) System.out.println(customerArrayList.get(i).getFirstName());
 
         // greeting customer and asking if they are a customer or bank manager
         System.out.println("Welcome!");
         System.out.println("Are you a customer or bank manager?");
         System.out.println("1. Customer");
         System.out.println("2. Bank Manager");
+        System.out.println("3. Transaction Reader");
         openingOption = userInput.nextInt();
 
         // if statement for individual
@@ -308,6 +257,9 @@ public class RunBank {
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect Value");
             }
+        }
+        if (openingOption == 3) {
+            managerCheckingObject.transactionReader("");
         }
     }
 }

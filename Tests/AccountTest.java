@@ -28,7 +28,8 @@ public class AccountTest {
         double checkingStartingBalance = 1999.99;
         double savingsStartingBalance = 699.98;
         double creditStartingBalance = -999.99;
-        Customer checkingInfo1 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+        int creditMax = 9999;
+        Customer checkingInfo1 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
         testArray.add(checkingInfo1);
         firstName = "David";
         lastName = "Rodriguez";
@@ -42,7 +43,8 @@ public class AccountTest {
         checkingStartingBalance = 15679.09;
         savingsStartingBalance = 69.09;
         creditStartingBalance = -9.99;
-        Customer checkingInfo2 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+        creditMax = 9999;
+        Customer checkingInfo2 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
         testArray.add(checkingInfo2);
         firstName = "Ivan";
         lastName = "Rodriguez";
@@ -56,7 +58,8 @@ public class AccountTest {
         checkingStartingBalance = 19.99;
         savingsStartingBalance = 6.98;
         creditStartingBalance = -9989.99;
-        Customer checkingInfo3 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+        creditMax = 9999;
+        Customer checkingInfo3 = new Customer(firstName,lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
         testArray.add(checkingInfo3);
         return testArray;
     }    /**

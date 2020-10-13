@@ -18,6 +18,7 @@ public class Customer extends Person {
     private double savingsStartingBalance;
     private int creditAccountNumber;
     private double creditStartingBalance;
+    private int creditMax;
     private Checking userChecking = new Checking();
 
     /**
@@ -128,6 +129,24 @@ public class Customer extends Person {
     }
 
     /**
+     * This method gets credit max
+     *
+     * @return credit max
+     */
+    public int getCreditMax() {
+        return this.creditMax;
+    }
+
+    /**
+     * This method sets credit max
+     *
+     * @param creditMaxIn Receives credit max
+     */
+    public void setCreditMax(int creditMaxIn) {
+        this.creditMax = creditMaxIn;
+    }
+
+    /**
      * This is the default constructor
      */
     public Customer() {
@@ -146,7 +165,7 @@ public class Customer extends Person {
      */
     public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int identificationNumberIn, String addressIn,
                     long phoneNumberIn, int checkingAccountNumberIn, int savingsAccountNumberIn, int creditAccountNumberIn,
-                    double checkingStartingBalanceIn, double savingsStartingBalanceIn, double creditStartingBalanceIn) {
+                    double checkingStartingBalanceIn, double savingsStartingBalanceIn, double creditStartingBalanceIn, int creditMaxIn) {
         super(firstNameIn, lastNameIn, dateOfBirthIn, identificationNumberIn, addressIn, phoneNumberIn);
         this.checkingAccountNumber = checkingAccountNumberIn;
         this.savingsAccountNumber = savingsAccountNumberIn;
@@ -154,6 +173,7 @@ public class Customer extends Person {
         this.checkingStartingBalance = checkingStartingBalanceIn;
         this.savingsStartingBalance = savingsStartingBalanceIn;
         this.creditStartingBalance = creditStartingBalanceIn;
+        this.creditMax = creditMaxIn;
     }
 
     public ArrayList<Customer> getBankListArray() {
@@ -161,14 +181,14 @@ public class Customer extends Person {
         // Initializing all index variables
         int firstNameIndex, lastNameIndex, dateOfBirthIndex, identificationNumberIndex, addressIndex,
         phoneNumberIndex, checkingAccountNumberIndex, savingsAccountNumberIndex, creditAccountNumberIndex,
-        checkingStartingBalanceIndex, savingsStartingBalanceIndex, creditStatingBalanceIndex;
+        checkingStartingBalanceIndex, savingsStartingBalanceIndex, creditStatingBalanceIndex, creditMaxIndex;
 
         firstNameIndex = lastNameIndex = dateOfBirthIndex = identificationNumberIndex = addressIndex =
         phoneNumberIndex = checkingAccountNumberIndex = savingsAccountNumberIndex = creditAccountNumberIndex =
-        checkingStartingBalanceIndex = savingsStartingBalanceIndex = creditStatingBalanceIndex = 0;
+        checkingStartingBalanceIndex = savingsStartingBalanceIndex = creditStatingBalanceIndex = creditMaxIndex = 0;
 
         // reading csv file
-        File bankUsers = new File("CS 3331 - Bank Users 2.csv");
+        File bankUsers = new File("CS 3331 - Bank Users 3.csv");
         Scanner scanner = null;
         // try and catch to prevent file not found exception
         try {
@@ -194,10 +214,7 @@ public class Customer extends Person {
 
             if (headerArray[i].equals("First Name")) firstNameIndex = j;
             if (headerArray[i].equals("Last Name")) lastNameIndex = j;
-            if (headerArray[i].equals("Date of Birth")) {
-                dateOfBirthIndex = j;
-                j += 1;
-            }
+            if (headerArray[i].equals("Date of Birth")) dateOfBirthIndex = j;
             if (headerArray[i].equals("IdentificationNumber")) identificationNumberIndex = j;
             if (headerArray[i].equals("Address")) {
                 addressIndex = j;
@@ -210,6 +227,7 @@ public class Customer extends Person {
             if (headerArray[i].equals("Checking Starting Balance")) checkingStartingBalanceIndex = j;
             if (headerArray[i].equals("Savings Starting Balance")) savingsStartingBalanceIndex = j;
             if (headerArray[i].equals("Credit Starting Balance")) creditStatingBalanceIndex = j;
+            if (headerArray[i].equals("Credit Max")) creditMaxIndex = j;
             j++;
 
         }
@@ -223,7 +241,7 @@ public class Customer extends Person {
 
             String firstName = newLine[firstNameIndex];
             String lastName = newLine[lastNameIndex];
-            String dateOfBirth = newLine[dateOfBirthIndex] + "," + newLine[dateOfBirthIndex + 1];
+            String dateOfBirth = newLine[dateOfBirthIndex];
             String identificationNumberString = newLine[identificationNumberIndex];
             int identificationNumber = Integer.parseInt(identificationNumberString.replaceAll("[\\s\\-]", ""));
             String address = newLine[addressIndex] + "," + newLine[addressIndex + 1] + "," + newLine[addressIndex + 2];
@@ -241,10 +259,12 @@ public class Customer extends Person {
             double savingsStartingBalance = Double.parseDouble(savingsStartingBalanceString);
             String creditStartingBalanceString = newLine[creditStatingBalanceIndex];
             double creditStartingBalance = Double.parseDouble(creditStartingBalanceString);
+            String creditMaxString = newLine[creditMaxIndex];
+            int creditMax = Integer.parseInt(creditMaxString);
 
             Customer userInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address,
             phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber,
-            checkingStartingBalance, savingsStartingBalance, creditStartingBalance);
+            checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
             bankList.add(userInfo);
         }
 
@@ -291,5 +311,66 @@ public class Customer extends Person {
 
         System.out.println("Account not found. Returning to main menu.");
         return -1;
+    }
+
+    /**
+     * This method creates a new account
+     *
+     * @param customerArrayList Receives array list
+     */
+    public void createAccount(ArrayList<Customer> customerArrayList) {
+
+        Scanner userInput = new Scanner(System.in);
+        Scanner addressScanner = new Scanner(System.in);
+        Scanner dobScanner = new Scanner(System.in);
+
+        System.out.println("Please include all fields");
+        System.out.print("First name: ");
+        String firstName = userInput.next();
+        System.out.print("Last name: ");
+        String lastName = userInput.next();
+        System.out.print("Date of birth (Month Day, Year): ");
+        String dateOfBirth = "\"" + dobScanner.nextLine() + "\"";
+        System.out.print("Address: ");
+        String address = "\"" + addressScanner.nextLine() + "\"";
+        System.out.print("10-digit phone number: ");
+        long phoneNumber = userInput.nextLong();
+        System.out.print("Savings account number: ");
+        int savingsAccountNumber = userInput.nextInt();
+        System.out.print("Amount to deposit into savings: ");
+        double savingsStartingBalance = userInput.nextDouble();
+        int identificationNumber = customerArrayList.size() + 1;
+
+        System.out.println("Would you like to create a Checking account? (y/n)");
+        String createAccount = userInput.next().toLowerCase();
+
+        int checkingAccountNumber = 0;
+        double checkingStartingBalance = 0;
+
+        if (createAccount.equals("y")) {
+            System.out.print("Enter checking account number: ");
+            checkingAccountNumber = userInput.nextInt();
+            System.out.print("Enter amount to deposit into checking: ");
+            checkingStartingBalance = userInput.nextDouble();
+        }
+
+        System.out.println("Would you like to create a Credit account? (y/n)");
+        createAccount = userInput.next().toLowerCase();
+
+        int creditAccountNumber = 0;
+        double creditStartingBalance = 0;
+
+        if (createAccount.equals("y")) {
+            System.out.print("Enter credit account number: ");
+            creditAccountNumber = userInput.nextInt();
+            System.out.print("Congratulations! You were approved for $5000");
+            creditStartingBalance = 0;
+        }
+
+        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
+
+        customerArrayList.add(customerInfo);
+
+        System.out.println("Redirecting you to main menu...");
     }
 }

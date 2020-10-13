@@ -353,8 +353,8 @@ public abstract class Account {
      */
     public void newBalanceSheet(ArrayList<Customer> customerArrayList) {
 
-        try (PrintWriter writer = new PrintWriter("CS 3331 - Bank Users 2.csv")) {
-            writer.println("First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance");
+        try (PrintWriter writer = new PrintWriter("CS 3331 - Bank Users 3.csv")) {
+            writer.println("First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Credit Max");
             for (int i = 0; i < customerArrayList.size(); i++) {
                 writer.print(customerArrayList.get(i).getFirstName() + ",");
                 writer.print(customerArrayList.get(i).getLastName() + ",");
@@ -367,12 +367,17 @@ public abstract class Account {
                 writer.print(customerArrayList.get(i).getCreditAccountNumber() + ",");
                 writer.print(customerArrayList.get(i).getCheckingStartingBalance() + ",");
                 writer.print(customerArrayList.get(i).getSavingsStartingBalance() + ",");
-                writer.println(customerArrayList.get(i).getCreditStartingBalance());
+                writer.print(customerArrayList.get(i).getCreditStartingBalance() + ",");
+                writer.println(customerArrayList.get(i).getCreditMax());
             }
         }
         catch (FileNotFoundException e) {
             System.out.println("Error");
         }
+
+    }
+
+    public void transactionReader(String fileName) {
 
     }
 }
