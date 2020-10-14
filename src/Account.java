@@ -363,7 +363,7 @@ public abstract class Account {
      */
     public void newBalanceSheet(ArrayList<Customer> customerArrayList) {
 
-        try (PrintWriter writer = new PrintWriter("CS 3331 - Bank Users 3.csv")) {
+        try (PrintWriter writer = new PrintWriter("New Balance Sheet.csv")) {
             writer.println("First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Credit Max");
             for (int i = 0; i < customerArrayList.size(); i++) {
                 writer.print(customerArrayList.get(i).getFirstName() + ",");

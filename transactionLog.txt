@@ -374,3 +374,4 @@ Kaa Disney withdrew $86.0 from their Checking account.
 Alfredo Rodriguez deposited $1000.0 into their savings account.
 Alfredo Rodriguez withdrew $1000.0 from their savings account.
 Simba Disney deposited $23.0 into their savings account.
+Alfredo Rodriguez withdrew $199.01 from their checking account.
