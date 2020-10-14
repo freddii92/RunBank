@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -156,13 +153,20 @@ public abstract class Account {
      * @param i Receives index from array lists.
      * @param accountType Receives the type of account.
      */
-    public void withdraw(ArrayList<Customer> customerArrayList, int i, String accountType) {
+    public void withdraw(ArrayList<Customer> customerArrayList, int i, String accountType, double amount) {
 
         Scanner userInput = new Scanner(System.in);
 
         // asking withdraw amount
-        System.out.print("Please enter amount: ");
-        double withdrawAmount = userInput.nextDouble();
+        double withdrawAmount;
+
+        if (amount == 0) {
+            System.out.print("Please enter amount: ");
+            withdrawAmount = userInput.nextDouble();
+        }
+        else {
+            withdrawAmount = amount;
+        }
 
         // if withdraw amount is negative, error will print out and user will be
         // returned to main menu
@@ -260,13 +264,19 @@ public abstract class Account {
      * @param i Receives index from the current user from the array list.
      * @param j Receives index from the other user from the array list.
      */
-    public void paySomeone(ArrayList<Customer> customerArrayList, String fromAccount, String toAccount, int i, int j) {
+    public void paySomeone(ArrayList<Customer> customerArrayList, String fromAccount, String toAccount, int i, int j, double amount) {
 
         Scanner userInput = new Scanner(System.in);
 
         // asking user for transfer amount
-        System.out.print("Please enter amount: ");
-        double paymentAmount = userInput.nextDouble();
+        double paymentAmount;
+        if (amount == 0) {
+            System.out.print("Please enter amount: ");
+            paymentAmount = userInput.nextDouble();
+        }
+        else {
+            paymentAmount = amount;
+        }
 
         // if amount is is negative, an error will be printed and user will return to main menu
         if (paymentAmount < 0) {
@@ -328,7 +338,7 @@ public abstract class Account {
         try {
             FileWriter transLogWriter = new FileWriter("transactionLog.txt", true);
             if (transactionType.equals("paySomeone")) {
-                transLogWriter.write(userName + " sent $" + amount + " to " + otherUserName + ".\n");
+                transLogWriter.write(userName + " payed $" + amount + " to " + otherUserName + ".\n");
             }
             if (transactionType.equals("deposit")) {
                 transLogWriter.write(userName + " deposited $" + amount + " into their " + fromAccount + " account.\n");
@@ -377,7 +387,129 @@ public abstract class Account {
 
     }
 
-    public void transactionReader(String fileName) {
+    /**
+     * This method reads a transaction action file and performs given operations
+     *
+     * @param fileName receives file name
+     */
+    public void transactionReader(ArrayList<Customer> customerArrayList, String fileName) {
 
+        int fromFirstNameIndex, fromLastNameIndex, fromWhereIndex, actionIndex, toFirstNameIndex, toLastNameIndex,
+                toWhereIndex, actionAmountIndex;
+        fromFirstNameIndex = fromLastNameIndex = fromWhereIndex = actionIndex = toFirstNameIndex = toLastNameIndex =
+                toWhereIndex = actionAmountIndex = 0;
+
+        // reading csv file
+        File transactionActions = new File(fileName);
+        Scanner scanner = null;
+        Scanner scannerCopy = null;
+        // try and catch to prevent file not found exception
+        try {
+            scanner = new Scanner(transactionActions);
+            scannerCopy = new Scanner(transactionActions);
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        }
+        // asserting scanner. this was suggested by IntelliJ
+        // it would give me an exception without it sometimes
+        assert scanner != null;
+        assert scannerCopy != null;
+
+        String header = scanner.nextLine();
+        String[] headerArray = header.split(",");
+
+        int i;
+        for (i = 0; i < headerArray.length; i++) {
+
+            if (headerArray[i].equals("From First Name")) fromFirstNameIndex = i;
+            if (headerArray[i].equals("From Last Name")) fromLastNameIndex = i;
+            if (headerArray[i].equals("From Where")) fromWhereIndex = i;
+            if (headerArray[i].equals("Action")) actionIndex = i;
+            if (headerArray[i].equals("To First Name")) toFirstNameIndex = i;
+            if (headerArray[i].equals("To Last Name")) toLastNameIndex = i;
+            if (headerArray[i].equals("To Where")) toWhereIndex = i;
+            if (headerArray[i].equals("Action Amount")) actionAmountIndex = i;
+
+        }
+
+//        scannerCopy.nextLine();
+//
+//        int count = 0;
+//        while (scanner.hasNextLine()) {
+//            scanner.nextLine();
+//            count++;
+//        }
+//
+//        String[][] newArray = new String[count][];
+//
+//        int column = 0;
+//        for (int row = 0; scannerCopy.hasNextLine() && row < count; row++) {
+//            newArray[row][0] = scannerCopy.nextLine();
+//        }
+
+//        for (int k = 0; k < newArray.length; k++) {
+//            System.out.println(Arrays.toString(newArray[k]));
+//        }
+
+        while (scanner.hasNextLine()) {
+            String nextLine = scanner.nextLine();
+            String[] newLine = nextLine.split(",");
+
+            String fromFirstName = null;
+            String fromLastName = null;
+            String fromWhere = null;
+            String toFirstName = null;
+            String toLastName = null;
+            String toWhere = null;
+            double actionAmount = 0;
+
+            String action = newLine[actionIndex];
+            if (!action.equals("deposits")) {
+                fromFirstName = newLine[fromFirstNameIndex];
+                fromLastName = newLine[fromLastNameIndex];
+                fromWhere = newLine[fromWhereIndex];
+            }
+            if (!action.equals("inquires")) {
+                if (!action.equals("withdraws")) {
+                    toFirstName = newLine[toFirstNameIndex];
+                    toLastName = newLine[toLastNameIndex];
+                    toWhere = newLine[toWhereIndex];
+                }
+                String actionAmountString = newLine[actionAmountIndex];
+                actionAmount = Double.parseDouble(actionAmountString);
+            }
+
+            Customer fromUser = new Customer();
+            Customer toUser = new Customer();
+            Checking checkingObject = new Checking();
+
+            int fromUserIndex = 0;
+            int toUserIndex = 0;
+
+            if (fromFirstName != null) {
+                fromUserIndex = fromUser.searchAccount(customerArrayList, fromFirstName, fromLastName);
+            }
+            if (toFirstName != null) {
+                toUserIndex = toUser.searchAccount(customerArrayList, toFirstName, toLastName);
+            }
+
+            if (action.equals("pays")) {
+                paySomeone(customerArrayList, fromWhere, toWhere, fromUserIndex, toUserIndex, actionAmount);
+            }
+            if (action.equals("transfers")) {
+                transfer(customerArrayList, fromWhere, toWhere, fromUserIndex, actionAmount);
+            }
+            if (action.equals("inquires")) {
+                checkingObject.inquireBalance(customerArrayList, fromUserIndex, fromWhere);
+            }
+            if (action.equals("withdraws")) {
+                withdraw(customerArrayList, fromUserIndex, fromWhere, actionAmount);
+            }
+            if (action.equals("deposits")) {
+                deposit(customerArrayList, fromUserIndex, actionAmount, toWhere);
+            }
+
+        }
     }
 }
