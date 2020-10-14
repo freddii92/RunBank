@@ -433,25 +433,6 @@ public abstract class Account {
 
         }
 
-//        scannerCopy.nextLine();
-//
-//        int count = 0;
-//        while (scanner.hasNextLine()) {
-//            scanner.nextLine();
-//            count++;
-//        }
-//
-//        String[][] newArray = new String[count][];
-//
-//        int column = 0;
-//        for (int row = 0; scannerCopy.hasNextLine() && row < count; row++) {
-//            newArray[row][0] = scannerCopy.nextLine();
-//        }
-
-//        for (int k = 0; k < newArray.length; k++) {
-//            System.out.println(Arrays.toString(newArray[k]));
-//        }
-
         while (scanner.hasNextLine()) {
             String nextLine = scanner.nextLine();
             String[] newLine = nextLine.split(",");
@@ -507,7 +488,7 @@ public abstract class Account {
                 withdraw(customerArrayList, fromUserIndex, fromWhere, actionAmount);
             }
             if (action.equals("deposits")) {
-                deposit(customerArrayList, fromUserIndex, actionAmount, toWhere);
+                deposit(customerArrayList, toUserIndex, actionAmount, toWhere);
             }
 
         }
