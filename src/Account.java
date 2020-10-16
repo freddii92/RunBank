@@ -77,9 +77,9 @@ public abstract class Account {
      * @param i Receives array list index
      */
     public void inquireBalance(ArrayList<Customer> accountList, int i) {
-        System.out.println("Checking $: " + accountList.get(i).getCheckingStartingBalance());
-        System.out.println("Savings  $: " + accountList.get(i).getSavingsStartingBalance());
-        System.out.println("Credit   $:" + accountList.get(i).getCreditStartingBalance());
+        System.out.println("Checking $: " + accountList.get(i).getCheckingCurrentBalance());
+        System.out.println("Savings  $: " + accountList.get(i).getSavingsCurrentBalance());
+        System.out.println("Credit   $:" + accountList.get(i).getCreditCurrentBalance());
     }
 
     /**
@@ -115,8 +115,8 @@ public abstract class Account {
 
         Scanner userInput = new Scanner(System.in);
 
-        if (accountType.equals("credit") && (depositAmount + customerArrayList.get(i).getCreditStartingBalance() > 0)) {
-            return "Unable to deposit more than your current balance of $" + customerArrayList.get(i).getCreditStartingBalance() + "\n" + "Returning to main menu.";
+        if (accountType.equals("credit") && (depositAmount + customerArrayList.get(i).getCreditCurrentBalance() > 0)) {
+            return "Unable to deposit more than your current balance of $" + customerArrayList.get(i).getCreditCurrentBalance() + "\n" + "Returning to main menu.";
         }
 
         // if deposit amount is negative, it will print an error exit out of method
@@ -126,16 +126,16 @@ public abstract class Account {
 
         // adding deposited amount to his balance
         if (accountType.equals("checking")) {
-            double newBalance = customerArrayList.get(i).getCheckingStartingBalance() + depositAmount;
-            customerArrayList.get(i).setCheckingStartingBalance(newBalance);
+            double newBalance = customerArrayList.get(i).getCheckingCurrentBalance() + depositAmount;
+            customerArrayList.get(i).setCheckingCurrentBalance(newBalance);
         }
         if (accountType.equals("savings")) {
-            double newBalance = customerArrayList.get(i).getSavingsStartingBalance() + depositAmount;
-            customerArrayList.get(i).setSavingsStartingBalance(newBalance);
+            double newBalance = customerArrayList.get(i).getSavingsCurrentBalance() + depositAmount;
+            customerArrayList.get(i).setSavingsCurrentBalance(newBalance);
         }
         if (accountType.equals("credit")) {
-            double newBalance = customerArrayList.get(i).getCreditStartingBalance() + depositAmount;
-            customerArrayList.get(i).setCreditStartingBalance(newBalance);
+            double newBalance = customerArrayList.get(i).getCreditCurrentBalance() + depositAmount;
+            customerArrayList.get(i).setCreditCurrentBalance(newBalance);
         }
 
         // adding transaction to the transaction log text file by calling the transactionLog method
@@ -177,23 +177,23 @@ public abstract class Account {
 
         // if withdraw amount is more than what the user has, an error
         // will be printed and user will be returned to main menu
-        if (accountType.equals("checking") && customerArrayList.get(i).getCheckingStartingBalance() - withdrawAmount < 0) {
+        if (accountType.equals("checking") && customerArrayList.get(i).getCheckingCurrentBalance() - withdrawAmount < 0) {
             System.out.println("Insufficient funds in checking account. Returning to main menu.");
             return;
         }
-        if (accountType.equals("savings") && customerArrayList.get(i).getSavingsStartingBalance() - withdrawAmount < 0) {
+        if (accountType.equals("savings") && customerArrayList.get(i).getSavingsCurrentBalance() - withdrawAmount < 0) {
             System.out.println("Insufficient funds in savings account. Returning to main menu.");
             return;
         }
 
         // subtracting withdraw amount from user's balance
         if (accountType.equals("checking")) {
-            double newAccountBalance = customerArrayList.get(i).getCheckingStartingBalance() - withdrawAmount;
-            customerArrayList.get(i).setCheckingStartingBalance(newAccountBalance);
+            double newAccountBalance = customerArrayList.get(i).getCheckingCurrentBalance() - withdrawAmount;
+            customerArrayList.get(i).setCheckingCurrentBalance(newAccountBalance);
         }
         if (accountType.equals("savings")) {
-            double newAccountBalance = customerArrayList.get(i).getSavingsStartingBalance() - withdrawAmount;
-            customerArrayList.get(i).setSavingsStartingBalance(newAccountBalance);
+            double newAccountBalance = customerArrayList.get(i).getSavingsCurrentBalance() - withdrawAmount;
+            customerArrayList.get(i).setSavingsCurrentBalance(newAccountBalance);
         }
 
         // printing success including new balance
@@ -231,20 +231,20 @@ public abstract class Account {
             return "Incorrect value. Returning to main menu.";
         }
 
-        if (fromAccount.equals("checking") && customerArrayList.get(i).getCheckingStartingBalance() - transferAmount < 0) {
+        if (fromAccount.equals("checking") && customerArrayList.get(i).getCheckingCurrentBalance() - transferAmount < 0) {
             return "Insufficient funds. Returning to main menu.";
         }
-        if (fromAccount.equals("savings") && customerArrayList.get(i).getSavingsStartingBalance() - transferAmount < 0) {
+        if (fromAccount.equals("savings") && customerArrayList.get(i).getSavingsCurrentBalance() - transferAmount < 0) {
             return "Insufficient funds. Returning to main menu.";
         }
 
         if (fromAccount.equals("checking")) {
-            customerArrayList.get(i).setCheckingStartingBalance(customerArrayList.get(i).getCheckingStartingBalance() - transferAmount);
-            customerArrayList.get(i).setSavingsStartingBalance(customerArrayList.get(i).getSavingsStartingBalance() + transferAmount);
+            customerArrayList.get(i).setCheckingCurrentBalance(customerArrayList.get(i).getCheckingCurrentBalance() - transferAmount);
+            customerArrayList.get(i).setSavingsCurrentBalance(customerArrayList.get(i).getSavingsCurrentBalance() + transferAmount);
         }
         if (fromAccount.equals("savings")) {
-            customerArrayList.get(i).setSavingsStartingBalance(customerArrayList.get(i).getSavingsStartingBalance() - transferAmount);
-            customerArrayList.get(i).setCheckingStartingBalance(customerArrayList.get(i).getCheckingStartingBalance() + transferAmount);
+            customerArrayList.get(i).setSavingsCurrentBalance(customerArrayList.get(i).getSavingsCurrentBalance() - transferAmount);
+            customerArrayList.get(i).setCheckingCurrentBalance(customerArrayList.get(i).getCheckingCurrentBalance() + transferAmount);
         }
 
         // adding transaction to the transaction log text file by calling the transactionLog method
@@ -286,29 +286,29 @@ public abstract class Account {
 
         // if transfer amount is more than what the user has, it will print an error
         // and return user to the main menu
-        if (fromAccount.equals("checking") && customerArrayList.get(i).getCheckingStartingBalance() - paymentAmount < 0) {
+        if (fromAccount.equals("checking") && customerArrayList.get(i).getCheckingCurrentBalance() - paymentAmount < 0) {
             System.out.println("Insufficient funds in checking account. Returning to main menu.");
             return;
         }
-        if (fromAccount.equals("savings") && customerArrayList.get(i).getSavingsStartingBalance() - paymentAmount < 0) {
+        if (fromAccount.equals("savings") && customerArrayList.get(i).getSavingsCurrentBalance() - paymentAmount < 0) {
             System.out.println("Insufficient funds in savings account. Returning to main menu.");
             return;
         }
 
         // subtracting transfer amount from current user's balance
         if (fromAccount.equals("checking")) {
-            customerArrayList.get(i).setCheckingStartingBalance(customerArrayList.get(i).getCheckingStartingBalance() - paymentAmount);
+            customerArrayList.get(i).setCheckingCurrentBalance(customerArrayList.get(i).getCheckingCurrentBalance() - paymentAmount);
         }
         if (fromAccount.equals("savings")) {
-            customerArrayList.get(i).setSavingsStartingBalance(customerArrayList.get(i).getSavingsStartingBalance() - paymentAmount);
+            customerArrayList.get(i).setSavingsCurrentBalance(customerArrayList.get(i).getSavingsCurrentBalance() - paymentAmount);
         }
 
         // adding transfer amount to other user's balance
         if (toAccount.equals("checking")) {
-            customerArrayList.get(j).setCheckingStartingBalance(customerArrayList.get(j).getCheckingStartingBalance() + paymentAmount);
+            customerArrayList.get(j).setCheckingCurrentBalance(customerArrayList.get(j).getCheckingCurrentBalance() + paymentAmount);
         }
         if (toAccount.equals("savings")) {
-            customerArrayList.get(j).setSavingsStartingBalance(customerArrayList.get(j).getSavingsStartingBalance() + paymentAmount);
+            customerArrayList.get(j).setSavingsCurrentBalance(customerArrayList.get(j).getSavingsCurrentBalance() + paymentAmount);
         }
 
         // success message including new balance
@@ -375,9 +375,9 @@ public abstract class Account {
                 writer.print(customerArrayList.get(i).getCheckingAccountNumber() + ",");
                 writer.print(customerArrayList.get(i).getSavingsAccountNumber() + ",");
                 writer.print(customerArrayList.get(i).getCreditAccountNumber() + ",");
-                writer.print(customerArrayList.get(i).getCheckingStartingBalance() + ",");
-                writer.print(customerArrayList.get(i).getSavingsStartingBalance() + ",");
-                writer.print(customerArrayList.get(i).getCreditStartingBalance() + ",");
+                writer.print(customerArrayList.get(i).getCheckingCurrentBalance() + ",");
+                writer.print(customerArrayList.get(i).getSavingsCurrentBalance() + ",");
+                writer.print(customerArrayList.get(i).getCreditCurrentBalance() + ",");
                 writer.println(customerArrayList.get(i).getCreditMax());
             }
         }
@@ -402,11 +402,9 @@ public abstract class Account {
         // reading csv file
         File transactionActions = new File(fileName);
         Scanner scanner = null;
-        Scanner scannerCopy = null;
         // try and catch to prevent file not found exception
         try {
             scanner = new Scanner(transactionActions);
-            scannerCopy = new Scanner(transactionActions);
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found.");
@@ -414,7 +412,6 @@ public abstract class Account {
         // asserting scanner. this was suggested by IntelliJ
         // it would give me an exception without it sometimes
         assert scanner != null;
-        assert scannerCopy != null;
 
         String header = scanner.nextLine();
         String[] headerArray = header.split(",");

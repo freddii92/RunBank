@@ -57,13 +57,13 @@ public class Checking extends Account {
     public void inquireBalance(ArrayList<Customer> accountList, int i, String accountType) {
 
         if (accountType.equals("checking")) {
-            System.out.println("Checking $: " + accountList.get(i).getCheckingStartingBalance());
+            System.out.println("Checking $: " + accountList.get(i).getCheckingCurrentBalance());
         }
         if (accountType.equals("savings")) {
-            System.out.println("Savings $: " + accountList.get(i).getSavingsStartingBalance());
+            System.out.println("Savings $: " + accountList.get(i).getSavingsCurrentBalance());
         }
         if (accountType.equals("credit")) {
-            System.out.println("Credit $: " + accountList.get(i).getCreditStartingBalance());
+            System.out.println("Credit $: " + accountList.get(i).getCreditCurrentBalance());
         }
     }
 }

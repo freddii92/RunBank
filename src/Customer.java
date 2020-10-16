@@ -14,10 +14,13 @@ public class Customer extends Person {
 
     private int checkingAccountNumber;
     private double checkingStartingBalance;
+    private double checkingCurrentBalance;
     private int savingsAccountNumber;
     private double savingsStartingBalance;
+    private double savingsCurrentBalance;
     private int creditAccountNumber;
     private double creditStartingBalance;
+    private double creditCurrentBalance;
     private int creditMax;
     private final Checking userChecking = new Checking();
 
@@ -40,9 +43,9 @@ public class Customer extends Person {
     }
 
     /**
-     * This method gets the checking starting balance
+     * This method gets the starting balance
      *
-     * @return checking account number
+     * @return checking starting balance
      */
     public double getCheckingStartingBalance() {
         return this.checkingStartingBalance;
@@ -55,6 +58,24 @@ public class Customer extends Person {
      */
     public void setCheckingStartingBalance(double checkingStartingBalanceIn) {
         this.checkingStartingBalance = checkingStartingBalanceIn;
+    }
+
+    /**
+     * This method gets the checking current balance
+     *
+     * @return checking current balance
+     */
+    public double getCheckingCurrentBalance() {
+        return this.checkingCurrentBalance;
+    }
+
+    /**
+     * This method sets the checking current balance
+     *
+     * @param checkingCurrentBalanceIn Receives checking current balance
+     */
+    public void setCheckingCurrentBalance(double checkingCurrentBalanceIn) {
+        this.checkingCurrentBalance = checkingCurrentBalanceIn;
     }
 
     /**
@@ -85,11 +106,30 @@ public class Customer extends Person {
     }
 
     /**
-     * This method sets savings starting balance
+     * This method sets the savings starting balance
+     *
      * @param savingsStartingBalanceIn Receives savings starting balance
      */
     public void setSavingsStartingBalance(double savingsStartingBalanceIn) {
         this.savingsStartingBalance = savingsStartingBalanceIn;
+    }
+
+    /**
+     * This method gets the savings current balance
+     *
+     * @return savings current balance
+     */
+    public double getSavingsCurrentBalance() {
+        return this.savingsCurrentBalance;
+    }
+
+    /**
+     * This method sets savings current balance
+     *
+     * @param savingsCurrentBalanceIn Receives savings current balance
+     */
+    public void setSavingsCurrentBalance(double savingsCurrentBalanceIn) {
+        this.savingsCurrentBalance = savingsCurrentBalanceIn;
     }
 
     /**
@@ -120,12 +160,30 @@ public class Customer extends Person {
     }
 
     /**
-     * This method sets credit starting balance
+     * This method sets the credit starting balance
      *
      * @param creditStartingBalanceIn Receives credit starting balance
      */
     public void setCreditStartingBalance(double creditStartingBalanceIn) {
         this.creditStartingBalance = creditStartingBalanceIn;
+    }
+
+    /**
+     * This method gets the credit current balance
+     *
+     * @return credit current balance
+     */
+    public double getCreditCurrentBalance() {
+        return this.creditCurrentBalance;
+    }
+
+    /**
+     * This method sets credit current balance
+     *
+     * @param creditCurrentBalanceIn Receives credit current balance
+     */
+    public void setCreditCurrentBalance(double creditCurrentBalanceIn) {
+        this.creditCurrentBalance = creditCurrentBalanceIn;
     }
 
     /**
@@ -165,7 +223,7 @@ public class Customer extends Person {
      */
     public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int identificationNumberIn, String addressIn,
                     long phoneNumberIn, int checkingAccountNumberIn, int savingsAccountNumberIn, int creditAccountNumberIn,
-                    double checkingStartingBalanceIn, double savingsStartingBalanceIn, double creditStartingBalanceIn, int creditMaxIn) {
+                    double checkingStartingBalanceIn, double savingsStartingBalanceIn, double creditStartingBalanceIn, double checkingCurrentBalanceIn, double savingsCurrentBalanceIn, double creditCurrentBalanceIn, int creditMaxIn) {
         super(firstNameIn, lastNameIn, dateOfBirthIn, identificationNumberIn, addressIn, phoneNumberIn);
         this.checkingAccountNumber = checkingAccountNumberIn;
         this.savingsAccountNumber = savingsAccountNumberIn;
@@ -173,6 +231,9 @@ public class Customer extends Person {
         this.checkingStartingBalance = checkingStartingBalanceIn;
         this.savingsStartingBalance = savingsStartingBalanceIn;
         this.creditStartingBalance = creditStartingBalanceIn;
+        this.checkingCurrentBalance = checkingCurrentBalanceIn;
+        this.savingsCurrentBalance = savingsCurrentBalanceIn;
+        this.creditCurrentBalance = creditCurrentBalanceIn;
         this.creditMax = creditMaxIn;
     }
 
@@ -255,16 +316,19 @@ public class Customer extends Person {
             int creditAccountNumber = Integer.parseInt(creditAccountNumberString);
             String checkingStartingBalanceString = newLine[checkingStartingBalanceIndex];
             double checkingStartingBalance = Double.parseDouble(checkingStartingBalanceString);
+            double checkingCurrentBalance = Double.parseDouble(checkingStartingBalanceString);
             String savingsStartingBalanceString = newLine[savingsStartingBalanceIndex];
             double savingsStartingBalance = Double.parseDouble(savingsStartingBalanceString);
+            double savingsCurrentBalance = Double.parseDouble(savingsStartingBalanceString);
             String creditStartingBalanceString = newLine[creditStatingBalanceIndex];
             double creditStartingBalance = Double.parseDouble(creditStartingBalanceString);
+            double creditCurrentBalance = Double.parseDouble(creditStartingBalanceString);
             String creditMaxString = newLine[creditMaxIndex];
             int creditMax = Integer.parseInt(creditMaxString);
 
             Customer userInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address,
             phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber,
-            checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
+            checkingStartingBalance, savingsStartingBalance, creditStartingBalance, checkingCurrentBalance, savingsCurrentBalance, creditCurrentBalance, creditMax);
             bankList.add(userInfo);
         }
 
@@ -339,6 +403,7 @@ public class Customer extends Person {
         int savingsAccountNumber = userInput.nextInt();
         System.out.print("Amount to deposit into savings: ");
         double savingsStartingBalance = userInput.nextDouble();
+        double savingsCurrentBalance = savingsStartingBalance;
         int identificationNumber = customerArrayList.size() + 1;
 
         System.out.println("Would you like to create a Checking account? (y/n)");
@@ -346,12 +411,14 @@ public class Customer extends Person {
 
         int checkingAccountNumber = 0;
         double checkingStartingBalance = 0;
+        double checkingCurrentBalance = checkingStartingBalance;
 
         if (createAccount.equals("y")) {
             System.out.print("Enter checking account number: ");
             checkingAccountNumber = userInput.nextInt();
             System.out.print("Enter amount to deposit into checking: ");
             checkingStartingBalance = userInput.nextDouble();
+            checkingCurrentBalance = checkingStartingBalance;
         }
 
         System.out.println("Would you like to create a Credit account? (y/n)");
@@ -359,6 +426,8 @@ public class Customer extends Person {
 
         int creditAccountNumber = 0;
         double creditStartingBalance = 0;
+        double creditCurrentBalance = 0;
+        int creditMax = 5000;
 
         if (createAccount.equals("y")) {
             System.out.print("Enter credit account number: ");
@@ -367,7 +436,7 @@ public class Customer extends Person {
             creditStartingBalance = 0;
         }
 
-        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance, creditMax);
+        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, checkingAccountNumber, savingsAccountNumber, creditAccountNumber, checkingStartingBalance, savingsStartingBalance, creditStartingBalance, checkingCurrentBalance, savingsCurrentBalance, creditCurrentBalance, creditMax);
 
         customerArrayList.add(customerInfo);
 

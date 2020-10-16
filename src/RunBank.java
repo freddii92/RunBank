@@ -31,6 +31,11 @@ public class RunBank {
         Credit managerCreditObject = new Credit();
         boolean exitMain = false;
         boolean exit = false;
+        boolean customerExit = false;
+        double checkingStartingBalance;
+        double savingsStartingBalance;
+        double creditStartingBalance;
+        BankStatement manager = new BankStatement();
 
         customerArrayList = managerCustomerObject.getBankListArray();
 
@@ -45,6 +50,8 @@ public class RunBank {
 
         // greeting customer and asking if they are a customer or bank manager
         while (!exitMain) {
+            exit = false;
+            customerExit = false;
             System.out.println("Welcome!");
             System.out.println("Are you a customer or bank manager?");
             System.out.println("1. Customer");
@@ -76,11 +83,15 @@ public class RunBank {
                     }
                 }
 
+                checkingStartingBalance = user.getCheckingCurrentBalance();
+                savingsStartingBalance = user.getSavingsCurrentBalance();
+                creditStartingBalance = user.getCreditCurrentBalance();
+
                 System.out.println("Welcome " + user.getFirstName() + " " + user.getLastName() + "!");
 
                 // main menu when account is found
                 try {
-                    while (!exit) {
+                    while (!customerExit) {
                         System.out.println("1. Inquire Balance");
                         System.out.println("2. Deposit");
                         System.out.println("3. Withdraw");
@@ -91,9 +102,9 @@ public class RunBank {
 
                         if (mainInput == 1) {
                             System.out.println("Account Summary");
-                            System.out.println("Checking: $" + user.getCheckingStartingBalance());
-                            System.out.println("Savings:  $" + user.getSavingsStartingBalance());
-                            System.out.println("Credit:   $" + user.getCreditStartingBalance());
+                            System.out.println("Checking: $" + user.getCheckingCurrentBalance());
+                            System.out.println("Savings:  $" + user.getSavingsCurrentBalance());
+                            System.out.println("Credit:   $" + user.getCreditCurrentBalance());
                         }
                         if (mainInput == 2) {
                             System.out.println("Please select account.");
@@ -181,7 +192,7 @@ public class RunBank {
                         if (mainInput == 6) {
                             System.out.println("Returning to home page...");
                             userChecking.newBalanceSheet(customerArrayList);
-                            exit = true;
+                            customerExit = true;
                         }
                     }
                 } catch (InputMismatchException e) {
@@ -195,7 +206,8 @@ public class RunBank {
                         System.out.println("1. Inquire account by name.");
                         System.out.println("2. Inquire account by type/number");
                         System.out.println("3. Inquire all accounts");
-                        System.out.println("4. Exit");
+                        System.out.println("4. Print bank statement");
+                        System.out.println("5. Exit");
                         int managerInquireInput = userInput.nextInt();
                         if (managerInquireInput == 1) {
                             Scanner lastNameScanner = new Scanner(System.in);
@@ -206,9 +218,9 @@ public class RunBank {
                             int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerFirstNameInput, managerLastNameInput);
                             if (userAccountIndex == -1) continue;
                             System.out.println("Account Summary");
-                            System.out.println("Checking: $" + customerArrayList.get(userAccountIndex).getCheckingStartingBalance());
-                            System.out.println("Savings:  $" + customerArrayList.get(userAccountIndex).getSavingsStartingBalance());
-                            System.out.println("Credit:   $" + customerArrayList.get(userAccountIndex).getCreditStartingBalance());
+                            System.out.println("Checking: $" + customerArrayList.get(userAccountIndex).getCheckingCurrentBalance());
+                            System.out.println("Savings:  $" + customerArrayList.get(userAccountIndex).getSavingsCurrentBalance());
+                            System.out.println("Credit:   $" + customerArrayList.get(userAccountIndex).getCreditCurrentBalance());
                         }
                         if (managerInquireInput == 2) {
                             System.out.println("What account type?");
@@ -246,12 +258,22 @@ public class RunBank {
                         if (managerInquireInput == 3) {
                             for (int i = 0; i < customerArrayList.size(); i++) {
                                 System.out.println(customerArrayList.get(i).getFirstName() + " " + customerArrayList.get(i).getLastName());
-                                System.out.println("Checking: $" + customerArrayList.get(i).getCheckingStartingBalance());
-                                System.out.println("Savings:  $" + customerArrayList.get(i).getSavingsStartingBalance());
-                                System.out.println("Credit:   $" + customerArrayList.get(i).getCreditStartingBalance());
+                                System.out.println("Checking: $" + customerArrayList.get(i).getCheckingCurrentBalance());
+                                System.out.println("Savings:  $" + customerArrayList.get(i).getSavingsCurrentBalance());
+                                System.out.println("Credit:   $" + customerArrayList.get(i).getCreditCurrentBalance());
                             }
                         }
                         if (managerInquireInput == 4) {
+                            Scanner lastNameScanner = new Scanner(System.in);
+                            System.out.println("Please enter customer's information.");
+                            System.out.print("First name: ");
+                            String managerFirstNameInput = userInput.next();
+                            System.out.print("Last name: ");
+                            String managerLastNameInput = lastNameScanner.nextLine();
+                            int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerFirstNameInput, managerLastNameInput);
+                            manager.createBankStatement(customerArrayList, userAccountIndex, customerArrayList.get(userAccountIndex).getCheckingStartingBalance(), customerArrayList.get(userAccountIndex).getSavingsStartingBalance(), customerArrayList.get(userAccountIndex).getCreditStartingBalance());
+                        }
+                        if (managerInquireInput == 5) {
                             System.out.println("Returning to home page...");
                             exit = true;
                         }
