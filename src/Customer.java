@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Customer class is child class of Person
  *
  * @author Alfredo Rodriguez
- * @version 1.0, 09/25/2020
+ * @version 2.0, 10/16/2020
  * @since September 25, 2020
  */
 public class Customer extends Person {
@@ -237,6 +237,11 @@ public class Customer extends Person {
         this.creditMax = creditMaxIn;
     }
 
+    /**
+     * This method is to create the array list
+     *
+     * @return array list
+     */
     public ArrayList<Customer> getBankListArray() {
 
         // Initializing all index variables

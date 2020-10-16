@@ -7,7 +7,7 @@ import java.util.Scanner;
  * It includes getters and setters as well as multiple methods that will work with the main RunBank class and its child classes.
  *
  * @author Alfredo Rodriguez
- * @version 1.0, 09/25/2020
+ * @version 2.0, 10/16/2020
  * @since September 25, 2020
  *
  */

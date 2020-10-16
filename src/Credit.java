@@ -2,7 +2,7 @@
  * Credit class is the child class of Account
  *
  * @author Alfredo Rodriguez
- * @version 1.0, 09/25/2020
+ * @version 2.0, 10/16/2020
  * @since September 25, 2020
  */
 public class Credit extends Account {

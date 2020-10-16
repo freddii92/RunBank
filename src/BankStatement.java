@@ -10,11 +10,19 @@ import java.util.Scanner;
  * Bank Statement class to print out bank statements
  *
  * @author Alfredo Rodriguez
- * @version 1.0, 10/15/2020
+ * @version 1.0, 10/16/2020
  * @since October 15, 2020
  */
 public class BankStatement {
 
+    /**
+     * This method is to print our the bank statement
+     * @param customerArrayList Receives array list
+     * @param index Receives index from array list
+     * @param checkingStartingBalance Receives checking starting balance
+     * @param savingsStartingBalance Receives savings starting balance
+     * @param creditStartingBalance Receives credit starting balance
+     */
     public void createBankStatement(ArrayList<Customer> customerArrayList, int index, double checkingStartingBalance,
                                      double savingsStartingBalance, double creditStartingBalance) {
 
@@ -45,7 +53,7 @@ public class BankStatement {
             writer.println(customerArrayList.get(index).getAddress());
             writer.println();
             writer.println();
-            writer.println("-------------------- Transactions --------------------");
+            writer.println("___________________________________ Transactions ____________________________________");
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();

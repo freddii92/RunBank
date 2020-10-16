@@ -7,7 +7,7 @@ Alfredo Rodriguez
 "500 W. University Ave, El Paso, TX 79968"
 
 
--------------------- Transactions --------------------
+___________________________________ Transactions ____________________________________
 Alfredo Rodriguez payed $44.99 to Simba Disney.
 Alfredo Rodriguez deposited $1235.0 into their checking account.
 Alfredo Rodriguez deposited $3246.0 into their savings account.
@@ -34,6 +34,6 @@ Alfredo Rodriguez deposited $400.01 into their savings account.
 _____________________________________________________________________________________
 Starting Balance                                                       Ending Balance
 
-Checking: $1772.98                                                     Checking: $1572.99
-Savings:  $3443.94                                                     Savings:  $3843.95
+Checking: $1772.98                                                     Checking: $1772.98
+Savings:  $3443.94                                                     Savings:  $4443.9400000000005
 Credit:   $-1734.35                                                    Credit:   $-1734.35

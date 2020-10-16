@@ -6,7 +6,7 @@ import java.util.Scanner;
  * This is the RunBank method where main method is located
  *
  * @author Alfredo Rodriguez
- * @version 1.0,  09/25/2020
+ * @version 2.0,  10/16/2020
  * @since September 25, 2020
  */
 public class RunBank {
