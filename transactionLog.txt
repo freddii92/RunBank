@@ -189,3 +189,5 @@ Captaiin Hook payed $11.83 to Sofia Hernandez.
 Kaa Disney withdrew $86.0 from their Checking account.
 Alfredo Rodriguez deposited $1000.0 into their checking account.
 Alfredo Rodriguez withdrew $1234.0 from their savings account.
+Alfredo Rodriguez payed $199.99 to Simba Disney.
+Alfredo Rodriguez deposited $400.01 into their savings account.
