@@ -56,7 +56,7 @@ public class BankStatement {
             }
             writer.println("_____________________________________________________________________________________");
             writer.println("Starting Balance                                                       Ending Balance");
-            writer.println("________________                                                       ______________");
+            writer.println();
             writer.println("Checking: $" + checkingStartingBalance + "                                                     Checking: $" + customerArrayList.get(index).getCheckingCurrentBalance());
             writer.println("Savings:  $" + savingsStartingBalance + "                                                     Savings:  $" + customerArrayList.get(index).getSavingsCurrentBalance());
             writer.println("Credit:   $" + creditStartingBalance + "                                                    Credit:   $" + customerArrayList.get(index).getCreditCurrentBalance());
