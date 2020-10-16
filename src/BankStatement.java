@@ -41,20 +41,25 @@ public class BankStatement {
             writer.println("                                                              Credit Account Number:   " + customerArrayList.get(index).getCreditAccountNumber());
             writer.println("                                                              Statement Begin Date: " + today);
             writer.println("                                                              Statement End Date: " + today);
-            writer.println(customerArrayList.get(index).getFirstName() + customerArrayList.get(index).getLastName());
+            writer.println(customerArrayList.get(index).getFirstName() + " " + customerArrayList.get(index).getLastName());
             writer.println(customerArrayList.get(index).getAddress());
             writer.println();
             writer.println();
             writer.println("-------------------- Transactions --------------------");
+
             while (scanner.hasNextLine()) {
-                if (scanner.next().equals(customerArrayList.get(index).getFirstName())) {
-                    writer.println(scanner.nextLine());
+                String line = scanner.nextLine();
+                String[] newLine = line.split(" ");
+                if (newLine[0].equals(customerArrayList.get(index).getFirstName()) && newLine[1].equals(customerArrayList.get(index).getLastName())) {
+                    writer.println(line);
                 }
             }
-
-            writer.println(customerArrayList.get(index).getFirstName() + " " + customerArrayList.get(index).getLastName());
-
-
+            writer.println("_____________________________________________________________________________________");
+            writer.println("Starting Balance                                                       Ending Balance");
+            writer.println("________________                                                       ______________");
+            writer.println("Checking: $" + checkingStartingBalance + "                                                     Checking: $" + customerArrayList.get(index).getCheckingCurrentBalance());
+            writer.println("Savings:  $" + savingsStartingBalance + "                                                     Savings:  $" + customerArrayList.get(index).getSavingsCurrentBalance());
+            writer.println("Credit:   $" + creditStartingBalance + "                                                    Credit:   $" + customerArrayList.get(index).getCreditCurrentBalance());
         }
         catch (FileNotFoundException e) {
             System.out.println("Error");
