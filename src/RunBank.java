@@ -224,7 +224,7 @@ public class RunBank {
                         }
                         if (managerInquireInput == 2) {
                             System.out.println("What account type?");
-                            System.out.println("1. Credit");
+                            System.out.println("1. Checking");
                             System.out.println("2. Savings");
                             System.out.println("3. Credit");
                             int accountTypeInput = userInput.nextInt();
@@ -271,7 +271,9 @@ public class RunBank {
                             System.out.print("Last name: ");
                             String managerLastNameInput = lastNameScanner.nextLine();
                             int userAccountIndex = managerCustomerObject.searchAccount(customerArrayList, managerFirstNameInput, managerLastNameInput);
-                            manager.createBankStatement(customerArrayList, userAccountIndex, customerArrayList.get(userAccountIndex).getCheckingStartingBalance(), customerArrayList.get(userAccountIndex).getSavingsStartingBalance(), customerArrayList.get(userAccountIndex).getCreditStartingBalance());
+                            if (userAccountIndex != -1) {
+                                manager.createBankStatement(customerArrayList, userAccountIndex, customerArrayList.get(userAccountIndex).getCheckingStartingBalance(), customerArrayList.get(userAccountIndex).getSavingsStartingBalance(), customerArrayList.get(userAccountIndex).getCreditStartingBalance());
+                            }
                         }
                         if (managerInquireInput == 5) {
                             System.out.println("Returning to home page...");
